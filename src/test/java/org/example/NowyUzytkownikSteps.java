@@ -1,14 +1,20 @@
 package org.example;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.After;
 
 import java.util.Map;
 
 public class NowyUzytkownikSteps {
 
+    @Before
+    public void setUp(){
+        System.out.println("Metoda została wykonana przed scenariuszem");
+    }
 
     @Given("Użytkownik jest na stronie formularza dodawania nowego użytkownika")
     public void użytkownikJestNaStronieLogowania() {
@@ -29,5 +35,10 @@ public class NowyUzytkownikSteps {
     @Then("Informacja o dodaniu użytkownika pojawia się na ekranie")
     public void informacjaODodaniuUżytkownikaPojawiaSięNaEkranie() {
         System.out.println("Dodano nowego użytkownika");
+    }
+
+    @After
+    public void tearDown(){
+        System.out.println("Metoda została wykonana po scenariuszu");
     }
 }

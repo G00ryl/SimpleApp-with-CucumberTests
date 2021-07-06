@@ -1,17 +1,17 @@
 package org.example;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.After;
 
 import java.util.Map;
 
 public class NowyUzytkownikSteps {
 
-    @Before
+    @Before("@dev")
     public void setUp(){
         System.out.println("Metoda została wykonana przed scenariuszem");
     }
@@ -37,7 +37,7 @@ public class NowyUzytkownikSteps {
         System.out.println("Dodano nowego użytkownika");
     }
 
-    @After
+    @After("@dev")
     public void tearDown(){
         System.out.println("Metoda została wykonana po scenariuszu");
     }

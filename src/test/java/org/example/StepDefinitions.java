@@ -21,5 +21,4 @@ public class StepDefinitions {
     public void naEkranieWyswietlaSieKomunikatONieWystarczajacejIlosciGotowkiNaKoncie() {
         System.out.println("Metoda when sprawdzenie konta z saldem");
     }
-
 }

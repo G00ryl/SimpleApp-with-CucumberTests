@@ -28,4 +28,10 @@ public class LogIn {
     public boolean isLoggedIn(){
         return isLoggedIn;
     }
+    public String getCurrentUser(){
+        return currentUser;
+    }
+    public String getCurrentPassword(){
+        return currentPassword;
+    }
 }

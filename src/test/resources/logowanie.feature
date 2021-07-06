@@ -1,9 +1,11 @@
 Feature: Logowanie do aplikacji. W tym pliku będziemy testować logowanie użytkownika do aplikacji.
   Sekcja ta jest traktowana jako opis i nie wpływa na wykonanie testu.
 
+  Background:
+    Given Użytkownik jest na stronie logowania
+
   Scenario: Użytkownik podaje poprawne dane;
     # given jest warunkiem wstępnym do przeprowadzenia testu
-    Given Użytkownik jest na stronie logowania
     And Użytkownik o nazwie "login" i hasle "haslo" istnieje w bazie danych
     # when określa akcje która zostanie wykonana
     When Użytkownik wprowadza  nazwę użytkownika "login" i hasło "haslo"
@@ -13,12 +15,4 @@ Feature: Logowanie do aplikacji. W tym pliku będziemy testować logowanie użyt
     Then Użytkownik zostaje zalogowany na stronę domową aplikacji
     And Informacja o udanym logowaniu zostanie wyświetlona
 
-  Scenario: Użytkownik podaje błędne hasło
-    Given Użytkownik jest na stronie logowania
-    And Użytkownik o nazwie "login2" i hasle "haslo" istnieje w bazie danych
-    When Użytkownik wprowadza nazwę użytkownika "login2" i błędne hasło "zlehaslo"
-    And Użytkownik klika przycisk zaloguj
-    #but umożliwia dodanie negatywnego komentarza, używany do negatywnych warunków
-    But Dane logowania są niepoprawne
-    Then Użytkownik nie zostaje zalogowany na stronę domową aplikacji
-    And Informacja o nieudanej próbie zalogowania się zostaje wyświetlona.
+

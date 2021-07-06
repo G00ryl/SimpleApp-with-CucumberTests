@@ -1,53 +1,65 @@
 package org.example;
 
 import io.cucumber.java.PendingException;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.cucumber.java.en.*;
+import org.junit.Assert;
 
 public class LogowanieStepsDef {
 
-    @Given("Użytkownik jest na stronie logowania")
-    public void użytkownik_jest_na_stronie_logowania() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-        }
-        @Given("Użytkownik istnieje w bazie danych")
-        public void użytkownik_istnieje_w_bazie_danych () {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
-        @When("Użytkownik wprowadza  nazwę użytkownika i hasło")
-        public void użytkownik_wprowadza_nazwę_użytkownika_i_hasło () {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
-        @When("Użytkownik klika przycisk zaloguj")
-        public void użytkownik_klika_przycisk_zaloguj () {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
-        @Then("Użytkownik zostaje zalogowany na stronę domową aplikacji")
-        public void użytkownik_zostaje_zalogowany_na_stronę_domową_aplikacji () {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
-        @Then("Informacja o udanym logowaniu zostanie wyświetlona")
-        public void informacja_o_udanym_logowaniu_zostanie_wyświetlona () {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
+    private LogIn login;
+    private String username;
+    private String password;
 
-    @When("Użytkownik wprowadza  nazwę użytkownika {string} i hasło {string}")
-    public void użytkownikWprowadzaNazwęUżytkownikaIHasło(String login, String haslo) {
+    @Given("Użytkownik jest na stronie logowania")
+    public void użytkownikJestNaStronieLogowania() {
+        login = new LogIn();
     }
 
     @And("Użytkownik o nazwie {string} i hasle {string} istnieje w bazie danych")
-    public void użytkownikONazwieIHasleIstniejeWBazieDanych(String login, String haslo) {
+    public void użytkownikONazwieIHasleIstniejeWBazieDanych(String username, String password) {
+        login.setUserinDatabase(username,password);
+    }
+
+    @When("Użytkownik wprowadza  nazwę użytkownika {string} i hasło {string}")
+    public void użytkownikWprowadzaNazwęUżytkownikaIHasło(String username, String password) {
+        this.username = username;
+        this.password = password;
+        login.login(username,password);
+    }
+
+    @And("Użytkownik klika przycisk zaloguj")
+    public void użytkownikKlikaPrzyciskZaloguj() {
+        System.out.println("Klikamy przycisk zaloguj");
+    }
+
+    @Then("Użytkownik zostaje zalogowany na stronę domową aplikacji")
+    public void użytkownikZostajeZalogowanyNaStronęDomowąAplikacji() {
+        Assert.assertTrue(login.isLoggedIn());
+    }
+
+    @And("Informacja o udanym logowaniu zostanie wyświetlona")
+    public void informacjaOUdanymLogowaniuZostanieWyświetlona() {
+        Assert.assertTrue(login.getMsg().equals("Udało się zalogować"));
     }
 
     @When("Użytkownik wprowadza nazwę użytkownika {string} i błędne hasło {string}")
-    public void użytkownikWprowadzaNazwęUżytkownikaIBłędneHasło(String login2, String zlehaslo) {
+    public void użytkownikWprowadzaNazwęUżytkownikaIBłędneHasło(String arg0, String arg1) {
+    }
+
+    @But("Dane logowania są niepoprawne")
+    public void daneLogowaniaSąNiepoprawne() {
+        String databaseUsername = login.getCurrentUser();
+        String databasePassword = login.getCurrentPassword();
+        Assert.assertFalse(username.equals(databaseUsername)&& password.equals(databasePassword));
+    }
+
+    @Then("Użytkownik nie zostaje zalogowany na stronę domową aplikacji")
+    public void użytkownikNieZostajeZalogowanyNaStronęDomowąAplikacji() {
+        Assert.assertFalse(login.isLoggedIn());
+    }
+
+    @And("Informacja o nieudanej próbie zalogowania się zostaje wyświetlona.")
+    public void informacjaONieudanejPróbieZalogowaniaSięZostajeWyświetlona() {
+        Assert.assertTrue(login.getMsg().equals("Nie udało się Ci zalogować"));
     }
 }
